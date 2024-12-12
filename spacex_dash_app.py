@@ -1,4 +1,3 @@
-
 # Import required libraries
 import pandas as pd
 import dash
@@ -87,7 +86,9 @@ def get_pie_chart(entered_site):
               Input(component_id='payload-slider', component_property='value'))
 def get_scatter_plot(entered_site, entered_payload):
     if entered_site == "ALL":
-        fig = px.scatter(spacex_df, 
+        filtered_df2 = spacex_df.loc[spacex_df['Payload Mass (kg)'] >= entered_payload[0]]
+        filtered_df2 = filtered_df2.loc[filtered_df2['Payload Mass (kg)'] <= entered_payload[1]]
+        fig = px.scatter(filtered_df2, 
             x = "Payload Mass (kg)",
             y = "class",
             color="Booster Version Category",
